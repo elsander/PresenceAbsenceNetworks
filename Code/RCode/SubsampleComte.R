@@ -26,7 +26,7 @@ onePlotFiles <- function(comte, plots, setName){
     for(p in plots){
         onePlotData <- dplyr::filter(comte, OBJECTID == p) %>%
             dplyr::select(-OBJECTID, -Period)
-        fname <- stringr::str_c('../../Data/Comte-data/Comte-',
+        fname <- stringr::str_c('../../Data/Comte-',
                                 setName, '/Comte-', setName,
                                 '-', p, '.txt')
         write.table(onePlotData, fname, row.names = FALSE,
@@ -48,23 +48,23 @@ subsamplePlots <- function(){
     ##shuffle plot order
     allplots <- sample(allplots, size = length(allplots), replace = FALSE)
 
-    ##split into training and test sets (60/40)
+    ##split into training and cross-validation sets (60/40)
     trainingplots <- allplots[1:476] ## 476
-    testplots <- allplots[477:length(allplots)] ## 315
+    cvplots <- allplots[477:length(allplots)] ## 315
 
     trainingSet <- filter(comte, OBJECTID %in% trainingplots)
-    testSet <- filter(comte, OBJECTID %in% testplots)
+    cvSet <- filter(comte, OBJECTID %in% cvplots)
 
-    system('mkdir ../../Data/Comte-data/Comte-training-final/')
-    system('mkdir ../../Data/Comte-data/Comte-test-final/')
+    system('mkdir ../../Data/Comte-training-final/')
+    system('mkdir ../../Data/Comte-CV-final/')
     
     ## add NAs and write to table
     addNAsComte(trainingSet,
-                '../../Data/Comte-data/Comte-training-final/Comte-all-training-final.txt')
-    addNAsComte(testSet,
-                '../../Data/Comte-data/Comte-test-final/Comte-all-test-final.txt')
+                '../../Data/Comte-training-final/Comte-all-training-final.txt')
+    addNAsComte(cvSet,
+                '../../Data/Comte-CV-final/Comte-all-CV-final.txt')
 
     ## write data from individual sites to the appropriate folder
     onePlotFiles(comte, trainingplots, 'training-final')
-    onePlotFiles(comte, testplots, 'test-final')
+    onePlotFiles(comte, cvplots, 'CV-final')
 }
