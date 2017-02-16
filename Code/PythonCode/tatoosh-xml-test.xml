@@ -1,0 +1,166 @@
+
+<BanjoData>
+<BanjoXMLformatVersion>
+1.0
+</BanjoXMLformatVersion>
+<BanjoSettings>
+	<askToVerifySettings>no</askToVerifySettings>
+	<bestNetworksAre>nonidentical</bestNetworksAre>
+	<computeConsensusGraph>no</computeConsensusGraph>
+	<computeInfluenceScores>no</computeInfluenceScores>
+	<coolingFactor>0.8</coolingFactor>
+	<createConsensusGraphAsHTML>no</createConsensusGraphAsHTML>
+	<createDiscretizationReport>no</createDiscretizationReport>
+	<createDotOutput>no</createDotOutput>
+	<cycleCheckingMethod>default</cycleCheckingMethod>
+	<dataset>all control data</dataset>
+	<dbnMandatoryIdentityLags>1</dbnMandatoryIdentityLags>
+	<deciderChoice>default</deciderChoice>
+	<defaultMaxParentCount>10</defaultMaxParentCount>
+	<discretizationExceptions>noValueSuppliedByUser</discretizationExceptions>
+	<discretizationPolicy>none</discretizationPolicy>
+	<displayDebugInfo>none</displayDebugInfo>
+	<displayMemoryInfo>no</displayMemoryInfo>
+	<displayStatistics>no</displayStatistics>
+	<displayStructures>no</displayStructures>
+	<dotFileExtension>txt</dotFileExtension>
+	<dotGraphicsFormat>png</dotGraphicsFormat>
+	<equivalentSampleSize>1.0</equivalentSampleSize>
+	<errorDirectory>setting not found</errorDirectory>
+	<errorFile>setting not found</errorFile>
+	<evaluatorChoice>default</evaluatorChoice>
+	<fileNameForConsensusGraph>graph.consensus</fileNameForConsensusGraph>
+	<fileNameForGraphsAsHtml>setting not found</fileNameForGraphsAsHtml>
+	<fileNameForTopGraph>graph.top</fileNameForTopGraph>
+	<fileNamePrefixForThreads>thread=@threadid@_</fileNamePrefixForThreads>
+	<fileReportingInterval>3600000</fileReportingInterval>
+	<fullPathToDotExecutable>setting not found</fullPathToDotExecutable>
+	<htmlFileExtension>html</htmlFileExtension>
+	<initialStructureFile></initialStructureFile>
+	<initialTemperature>1000</initialTemperature>
+	<inputDirectory>../../Data/tatoosh-control-exp-cv/tatoosh-control-exp-cv-10</inputDirectory>
+	<maxAcceptedNetworksBeforeCooling>1000</maxAcceptedNetworksBeforeCooling>
+	<maxMarkovLag>1</maxMarkovLag>
+	<maxParentCount>5</maxParentCount>
+	<maxParentCountForRestart>3</maxParentCountForRestart>
+	<maxProposedNetworks>-1</maxProposedNetworks>
+	<maxProposedNetworksBeforeCooling>10000</maxProposedNetworksBeforeCooling>
+	<maxProposedNetworksBeforeRestart>setting not found</maxProposedNetworksBeforeRestart>
+	<maxRestarts>-1</maxRestarts>
+	<maxTime>28800000</maxTime>
+	<minAcceptedNetworksBeforeReannealing>200</minAcceptedNetworksBeforeReannealing>
+	<minMarkovLag>1</minMarkovLag>
+	<minNetworksBeforeChecking>1000</minNetworksBeforeChecking>
+	<minProposedNetworksAfterHighScore>setting not found</minProposedNetworksAfterHighScore>
+	<minProposedNetworksBeforeRestart>setting not found</minProposedNetworksBeforeRestart>
+	<mustBePresentEdgesFile></mustBePresentEdgesFile>
+	<mustNotBePresentEdgesFile></mustNotBePresentEdgesFile>
+	<nBestNetworks>1</nBestNetworks>
+	<notes>dynamic bayesian network inference</notes>
+	<numberOfIntermediateProgressReports>setting not found</numberOfIntermediateProgressReports>
+	<observationCount>-1</observationCount>
+	<observationsFile>*chunk*</observationsFile>
+	<outputDirectory>../../Results/tatoosh-control-exp-cv/tatoosh-control-exp-cv-10-5</outputDirectory>
+	<precomputeLogGamma>yes</precomputeLogGamma>
+	<project>presence-absence control</project>
+	<proposerChoice>RandomLocalMove</proposerChoice>
+	<reannealingTemperature>500</reannealingTemperature>
+	<reportFile>Tatoosh-report-tmp.txt</reportFile>
+	<restartWithRandomNetwork>yes</restartWithRandomNetwork>
+	<screenReportingInterval>3600000</screenReportingInterval>
+	<searcherChoice>SimAnneal</searcherChoice>
+	<seedForStartingSearch>1477516852157</seedForStartingSearch>
+	<settingsDirectory>setting not found</settingsDirectory>
+	<settingsFile>setting not found</settingsFile>
+	<statisticsChoice>default</statisticsChoice>
+	<summaryFile>setting not found</summaryFile>
+	<threads>1</threads>
+	<timeStampFormat>yyyy.MM.dd.HH.mm.ss</timeStampFormat>
+	<trackingFile>setting not found</trackingFile>
+	<useCache>fastLevel2</useCache>
+	<user>esander</user>
+	<variableCount>60</variableCount>
+	<variableNames>Mytilus-californianus,Mytilus-trossulus,Pollicipes,Semibalanus-cariosus,Balanus-glandula,Hallosaccion,Mastocarpus,Corallina-vancouvriensis,Endocladia,Ulva,Porphyra,Petrocelis-Ralfsia,Acrosiphonia,Diatoms,Rock,Fucus,Microcladia,Halichondria-Haliclona,Hedophyllum,Anthopleura,Polysiphonia,Iridea,Chthamalus,Leathesia,Ugly-Clam,Prionitis,Callithamnion,Phyllospadix,Nucella-ostrina,Nucella-canalicalata,Lottia-pelta,Lottia-digitalis,Lottia-paradigitalis,Lottia-scutum,Onchidella-borealis,Katharina-tunicata,Mopalia,Nemertea,Littorina-sitkana,Littorina-scutulata,Strongylocentrotus-purpuratus,Lepasterias-hexactis,Amphipoda,Amphissa-columbiana,Idotea,Cirolana,Chironomidae,Tonicella-lineata,Calliostoma-ligatum,Sipunculid,Cucumaria,Ocenebra-interfossa,Notoplana,Skinny-annelid,Lepidochitona,Archidoris-montereyensis,Oedignathus,Pinnotheres-pisum,Staphylinid-Beetle,Henricia</variableNames>
+	<variablesAreInRows>no</variablesAreInRows>
+	<writeToFileInterval>setting not found</writeToFileInterval>
+	<xmlInputDirectory></xmlInputDirectory>
+	<xmlInputFiles></xmlInputFiles>
+	<xmlOutputDirectory>../../Results/tatoosh-control-exp-cv/tatoosh-control-exp-cv-10-5</xmlOutputDirectory>
+	<xmlReportFile>tatoosh-control-exp-cv-10-10_0.xml</xmlReportFile>
+	<xmlSettingsToExport>All</xmlSettingsToExport>
+
+</BanjoSettings>
+
+<nBestNetworks>
+
+<network>
+
+<networkScore>
+-9436.4828
+</networkScore>
+<networkStructure>
+60
+ 0   1:   1 0            
+ 1   1:   1 1            
+ 2   1:   2 0 2          
+ 3   1:   3 3 17 34      
+ 4   1:   3 4 20 56      
+ 5   1:   2 5 9          
+ 6   1:   2 6 57         
+ 7   1:   3 0 7 11       
+ 8   1:   1 8            
+ 9   1:   1 9            
+10   1:   2 4 10         
+11   1:   3 0 11 56      
+12   1:   3 12 42 44     
+13   1:   3 0 13 26      
+14   1:   3 0 6 14       
+15   1:   2 15 28        
+16   1:   2 0 16         
+17   1:   2 17 26        
+18   1:   2 18 35        
+19   1:   2 19 28        
+20   1:   3 20 21 56     
+21   1:   2 0 21         
+22   1:   1 22           
+23   1:   4 12 23 37 55  
+24   1:   2 1 24         
+25   1:   3 25 41 45     
+26   1:   3 0 13 26      
+27   1:   2 21 27        
+28   1:   2 27 28        
+29   1:   2 29 43        
+30   1:   1 30           
+31   1:   2 29 31        
+32   1:   2 0 32         
+33   1:   1 33           
+34   1:   2 34 57        
+35   1:   2 0 35         
+36   1:   2 35 36        
+37   1:   3 18 35 37     
+38   1:   1 38           
+39   1:   2 39 41        
+40   1:   1 40           
+41   1:   2 13 41        
+42   1:   2 0 42         
+43   1:   3 28 43 49     
+44   1:   1 44           
+45   1:   2 45 47        
+46   1:   2 46 58        
+47   1:   1 47           
+48   1:   2 40 48        
+49   1:   2 0 49         
+50   1:   1 50           
+51   1:   2 43 51        
+52   1:   2 10 52        
+53   1:   3 0 31 53      
+54   1:   1 54           
+55   1:   2 35 55        
+56   1:   3 27 46 56     
+57   1:   2 44 57        
+58   1:   2 46 58        
+59   1:   2 28 59        
+</networkStructure>
+</network>
+</nBestNetworks>
+</BanjoData>

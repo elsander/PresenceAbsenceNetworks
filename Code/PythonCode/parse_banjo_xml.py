@@ -3,53 +3,68 @@ import untangle
 import numpy
 import os
 import sys
-import ipdb
 
 
-def build_spname_dict_Comte(spfname):
-    spdict_full = dict()
+def build_spname_dict(spfname):
+    '''
+    Build a dictionary of species names and the number used
+    to represent them in banjo.
+
+    Inputs
+    ------
+    spfname: string, path to file of species names
+
+    Returns
+    -------
+    spdict_abbrev: dict, keys are the integer representation of species as given
+        in the banjo xml file, values are species names
+    '''
     spdict_abbrev = dict()
-    # counting from -1 so that we skip the header
-    i = -1
+    i = 0
     with open(spfname, 'r') as f:
         for line in f:
             if i >= 0:
                 line = line.rstrip().split(',')
                 # convert from numbers to short names
-                spdict_abbrev[str(i)] = line[1]
-                # convert from short names to full (for graphing)
-                spdict_full[line[1]] = line[0]
-            i += 1
-    return spdict_full, spdict_abbrev
-
-
-def build_spname_dict_Tatoosh(spfname, metadata=False):
-    spdict_abbrev = dict()
-    with open(spfname, 'r') as f:
-        if metadata:
-            # count from -5 to skip metadata column names
-            i = -5
-        else:
-            # count from 0 if using file without metadata columns
-            i = 0
-        for line in f:
-            if i >= 0:
-                spdict_abbrev[str(i)] = line.strip('\n')
+                spdict_abbrev[str(i)] = line[0]
             i += 1
     return spdict_abbrev
 
 
 def structures_from_xml(fname):
+    '''
+    Read file and build list of xml networks
+
+    Inputs
+    ------
+    fname: string, path to xml file name
+
+    Returns
+    -------
+    list of Python untangle objects, representing the networks in the
+    fname file
+    '''
     try:
         xml_data = untangle.parse(fname)
         xml_nets = xml_data.BanjoData.nBestNetworks.network
         return xml_nets
     except:
-        # need to raise an appropriate error here, or try something else
-        raise ValueError
+        print("Failed to read xml file.")
+        raise
 
 
 def structure_to_dict(xml_net):
+    '''
+    Build a dictionary of the adjacency structure from Python untangle object.
+
+    Inputs
+    ------
+    xml_net: untangle object, data from banjo xml file
+
+    Returns
+    -------
+    dict, keys are Child species, values are lists of Parent species
+    '''
     # get the structure from the xml as a big unicode string
     net_structure = xml_net.networkStructure.cdata
     net_structure = net_structure.split('\n')
@@ -68,12 +83,37 @@ def structure_to_dict(xml_net):
 
 
 def structure_to_score(xml_net):
+    '''
+    Extract structure score from Python untangle object.
+
+    Inputs
+    ------
+    xml_net: untangle object, data from banjo xml file
+
+    Returns
+    -------
+    string, network score
+    '''
     net_score = xml_net.networkScore.cdata
     net_score = re.split('\n', net_score)
     return net_score[1]
 
 
 def dict_to_adjlist(net_dict, spdict_abbrev):
+    '''
+    Convert a dictionary of interactions to a list of lists
+
+    Inputs
+    ------
+    net_dict: dict, keys are Child species, values are lists of Parent species
+    spdict_abbrev: dict, keys are the integer representation of species as given
+        in the banjo xml file, values are species names
+
+    Returns
+    -------
+    net_adjlist: list of lists, first element is the header row ['Child', 'Parent'],
+        and each later element of the list is a [child, parent] pair
+    '''
     net_adjlist = [['Child', 'Parent']]
     for child, parents in net_dict.items():
         try:
@@ -82,34 +122,42 @@ def dict_to_adjlist(net_dict, spdict_abbrev):
                 parent_spname = spdict_abbrev[parent]
                 net_adjlist.append([child_spname, parent_spname])
         except:
-            ipdb.set_trace()
+            raise ValueError
     return net_adjlist
 
 
 def build_net_fname(fname, net_score):
+    '''
+    Build output file name for a structure with a given score
+
+    Inputs
+    ------
+    fname: string, path to xml file name
+    net_score: string, score of a network structure
+
+    Returns
+    -------
+    net_fname: string, file name where structure will be written
+    '''
     net_fname = fname.rsplit('-', 1)[0]
-    # net_fname = re.split('\.xml', fname)[0]
-    net_fname = net_fname + '-score' + net_score
+    net_fname = net_fname + '-score' + net_score + '-adjlist.csv'
     return net_fname
 
 
-def graphviz_plot(net_adjlist, spdict_full, Comte=True):
-    # build graphviz dot file
-    graphviz_string = ' digraph G {\n'
-    for pair in net_adjlist:
-        if pair[1] == 'Parent':
-            continue
-        if Comte:
-            graphviz_string += '%s -> %s;\n' % (spdict_full[pair[1]],
-                                                spdict_full[pair[0]])
-        else:
-            graphviz_string += '%s -> %s;\n' % (pair[1], pair[0])
-    graphviz_string += '}'
-    return graphviz_string
+def parse_banjo_xml(fname, spdict_abbrev):
+    '''
+    Parse xml output from banjo, for a single file.
 
+    Inputs
+    ------
+    fname: string, path to xml file name
+    spdict_abbrev: dict, keys are the integer representation of species as given
+        in the banjo xml file, values are species names
 
-def parse_banjo_xml(fname, spdict_full, spdict_abbrev, graphviz=True,
-                    Comte=True):
+    Returns
+    -------
+    float, best structure score from the xml file
+    '''
     try:
         xml_nets = structures_from_xml(fname)
     except:
@@ -122,50 +170,47 @@ def parse_banjo_xml(fname, spdict_full, spdict_abbrev, graphviz=True,
         scores.append(float(net_score))
         net_adjlist = dict_to_adjlist(net_dict, spdict_abbrev)
         net_fname = build_net_fname(fname, net_score)
-        if graphviz:
-            graphviz_string = graphviz_plot(
-                net_adjlist, spdict_full, Comte=Comte)
-            with open(net_fname + '.dot', 'w') as g:
-                g.write(graphviz_string)
-            # compile into svg
-            os.system('dot -Tsvg %s.dot -o %s.svg' % (net_fname, net_fname))
         net_adjlist = numpy.asarray(net_adjlist)
-        numpy.savetxt(net_fname + '-adjlist.csv',
-                      net_adjlist, fmt='%s', delimiter=',')
+        numpy.savetxt(net_fname, net_adjlist, fmt='%s', delimiter=',')
     return max(scores)
 
 
-def parse_all_xml(path, spfname, graphviz=True, delete=False, Comte=True):
-    if Comte:
-        spdict_full, spdict_abbrev = build_spname_dict_Comte(spfname)
-    else:
-        spdict_abbrev = build_spname_dict_Tatoosh(spfname)
-        spdict_full = None
+def parse_all_xml(path, spfname, delete=False):
+    '''
+    Parse xml output from banjo, for an entire folder of files.
+
+    Inputs
+    ------
+    path: string, path to folder containing xml files
+    spfname: string, path to file containing species names
+    delete: bool, flags if xml files should be deleted
+
+    Returns
+    -------
+    all_scores: list, list of the best scores for each xml file
+    '''
+
+    spdict_abbrev = build_spname_dict(spfname)
     fs = os.listdir(path)
     all_scores = []
     for f in fs:
         if re.match('.*xml$', f):
             print(f)
             all_scores.append(parse_banjo_xml(os.path.join(path, f),
-                                              spdict_full,
-                                              spdict_abbrev,
-                                              graphviz=graphviz,
-                                              Comte=Comte))
+                                              spdict_abbrev))
             if delete:
                 os.system('rm %s' % (os.path.join(path, f)))
     return all_scores
 
-if __name__ == "__main__":
-    path = sys.argv[1] # path to xml files
-    spfname = sys.argv[2] # file containing species names
-    graphviz = int(sys.argv[3]) # flag for creating graphviz graphs
-    delete = int(sys.argv[4]) # flag for deleting xml files
-    Comte = int(sys.argv[5]) # flag for Comte (1) or Tatoosh (0)
+# if __name__ == "__main__":
+# path = sys.argv[1]  # path to xml files
+# spfname = sys.argv[2]  # file containing species names
+# delete = int(sys.argv[3])  # flag for deleting xml files
 
-    for root, subdirs, files in os.walk(path):
-        for x in subdirs:
-            fullpath = os.path.join(path, x)
-            all_scores = parse_all_xml(fullpath, spfname, graphviz, delete, Comte=Comte)
-            all_scores.sort(reverse=True)
-            os.system('rm ' + fullpath + '/*.sh')
-            os.system('rm ' + fullpath + '/*tmp.txt')
+#     for root, subdirs, files in os.walk(path):
+#         for x in subdirs:
+#             fullpath = os.path.join(path, x)
+#             all_scores = parse_all_xml(fullpath, spfname, delete)
+#             all_scores.sort(reverse=True)
+#             os.system('rm ' + fullpath + '/*.sh')
+#             os.system('rm ' + fullpath + '/*tmp.txt')

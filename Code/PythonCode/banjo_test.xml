@@ -1,0 +1,176 @@
+
+<BanjoData>
+<BanjoXMLformatVersion>
+1.0
+</BanjoXMLformatVersion>
+<BanjoSettings>
+	<askToVerifySettings>no</askToVerifySettings>
+	<bestNetworksAre>nonidentical</bestNetworksAre>
+	<computeConsensusGraph>yes</computeConsensusGraph>
+	<computeInfluenceScores>no</computeInfluenceScores>
+	<coolingFactor>0.8</coolingFactor>
+	<createConsensusGraphAsHTML>no</createConsensusGraphAsHTML>
+	<createDiscretizationReport>no</createDiscretizationReport>
+	<createDotOutput>no</createDotOutput>
+	<cycleCheckingMethod>default</cycleCheckingMethod>
+	<dataset>all Comte data</dataset>
+	<dbnMandatoryIdentityLags>1</dbnMandatoryIdentityLags>
+	<deciderChoice>default</deciderChoice>
+	<defaultMaxParentCount>10</defaultMaxParentCount>
+	<discretizationExceptions>noValueSuppliedByUser</discretizationExceptions>
+	<discretizationPolicy>none</discretizationPolicy>
+	<displayDebugInfo>none</displayDebugInfo>
+	<displayMemoryInfo>yes</displayMemoryInfo>
+	<displayStatistics>no</displayStatistics>
+	<displayStructures>yes</displayStructures>
+	<dotFileExtension>txt</dotFileExtension>
+	<dotGraphicsFormat>png</dotGraphicsFormat>
+	<equivalentSampleSize>1.0</equivalentSampleSize>
+	<errorDirectory>setting not found</errorDirectory>
+	<errorFile>setting not found</errorFile>
+	<evaluatorChoice>default</evaluatorChoice>
+	<fileNameForConsensusGraph>Comte-Presence-Absence--DBN-consensus-graph</fileNameForConsensusGraph>
+	<fileNameForGraphsAsHtml>setting not found</fileNameForGraphsAsHtml>
+	<fileNameForTopGraph>Comte-Presence-Absence--DBN-top-graph</fileNameForTopGraph>
+	<fileNamePrefixForThreads>thread=@threadid@_</fileNamePrefixForThreads>
+	<fileReportingInterval>600000</fileReportingInterval>
+	<fullPathToDotExecutable>setting not found</fullPathToDotExecutable>
+	<htmlFileExtension>html</htmlFileExtension>
+	<initialStructureFile></initialStructureFile>
+	<initialTemperature>1000</initialTemperature>
+	<inputDirectory>../../Data/Comte2015/ComteOnePlot</inputDirectory>
+	<maxAcceptedNetworksBeforeCooling>1000</maxAcceptedNetworksBeforeCooling>
+	<maxMarkovLag>1</maxMarkovLag>
+	<maxParentCount>5</maxParentCount>
+	<maxParentCountForRestart>3</maxParentCountForRestart>
+	<maxProposedNetworks>-1</maxProposedNetworks>
+	<maxProposedNetworksBeforeCooling>10000</maxProposedNetworksBeforeCooling>
+	<maxProposedNetworksBeforeRestart>setting not found</maxProposedNetworksBeforeRestart>
+	<maxRestarts>-1</maxRestarts>
+	<maxTime>600000</maxTime>
+	<minAcceptedNetworksBeforeReannealing>200</minAcceptedNetworksBeforeReannealing>
+	<minMarkovLag>1</minMarkovLag>
+	<minNetworksBeforeChecking>1000</minNetworksBeforeChecking>
+	<minProposedNetworksAfterHighScore>setting not found</minProposedNetworksAfterHighScore>
+	<minProposedNetworksBeforeRestart>setting not found</minProposedNetworksBeforeRestart>
+	<mustBePresentEdgesFile></mustBePresentEdgesFile>
+	<mustNotBePresentEdgesFile></mustNotBePresentEdgesFile>
+	<nBestNetworks>5</nBestNetworks>
+	<notes>dynamic bayesian network inference</notes>
+	<numberOfIntermediateProgressReports>setting not found</numberOfIntermediateProgressReports>
+	<observationCount>-1</observationCount>
+	<observationsFile>Comte-Presence-Absence-*</observationsFile>
+	<outputDirectory>../../Results/banjo_DBN/</outputDirectory>
+	<precomputeLogGamma>yes</precomputeLogGamma>
+	<project>Comte</project>
+	<proposerChoice>RandomLocalMove</proposerChoice>
+	<reannealingTemperature>500</reannealingTemperature>
+	<reportFile>Comte-Presence-Absence--DBN-report</reportFile>
+	<restartWithRandomNetwork>yes</restartWithRandomNetwork>
+	<screenReportingInterval>30000</screenReportingInterval>
+	<searcherChoice>SimAnneal</searcherChoice>
+	<seedForStartingSearch>1449698952980</seedForStartingSearch>
+	<settingsDirectory>setting not found</settingsDirectory>
+	<settingsFile>setting not found</settingsFile>
+	<statisticsChoice>default</statisticsChoice>
+	<summaryFile>setting not found</summaryFile>
+	<threads>1</threads>
+	<timeStampFormat>yyyy.MM.dd.HH.mm.ss</timeStampFormat>
+	<trackingFile>setting not found</trackingFile>
+	<useCache>fastLevel2</useCache>
+	<user>esander</user>
+	<variableCount>32</variableCount>
+	<variableNames>OBJECTID,Period,Ala,Ana,Bab,Bam,Tes,Blb,Abb,Esl,Cyc,Cog,Sqc,Gaa,Pup,Rur,Gog,Gyc,Chn,Bba,Lol,Tht,Amm,Pef,Leg,Sce,Sal,Sas,Alb,Tit,Pat,Sat,Php,Lel</variableNames>
+	<variablesAreInRows>no</variablesAreInRows>
+	<writeToFileInterval>setting not found</writeToFileInterval>
+	<xmlInputDirectory></xmlInputDirectory>
+	<xmlInputFiles></xmlInputFiles>
+	<xmlOutputDirectory>../../Results/banjo_DBN/</xmlOutputDirectory>
+	<xmlReportFile>Comte-Presence-Absence--DBN.xml</xmlReportFile>
+	<xmlSettingsToExport>All</xmlSettingsToExport>
+
+</BanjoSettings>
+
+<nBestNetworks>
+
+<network>
+
+<networkScore>
+-25919.7635
+</networkScore>
+<networkStructure>
+6
+ 0   1:   2 0 2          
+ 1   1:   1 1            
+ 2   1:   1 2            
+ 3   1:   1 3            
+ 4   1:   2 4 5          
+ 5   1:   2 0 5          
+</networkStructure>
+</network>
+
+<network>
+
+<networkScore>
+-25919.8905
+</networkScore>
+<networkStructure>
+6
+ 0   1:   2 0 2          
+ 1   1:   1 1            
+ 2   1:   1 2            
+ 3   1:   1 3            
+ 4   1:   2 4 5          
+ 5   1:   2 0 5          
+</networkStructure>
+</network>
+
+<network>
+
+<networkScore>
+-25920.1071
+</networkScore>
+<networkStructure>
+6
+ 0   1:   2 0 2          
+ 1   1:   1 1            
+ 2   1:   1 2            
+ 3   1:   1 3            
+ 4   1:   2 4 5          
+ 5   1:   2 0 5          
+</networkStructure>
+</network>
+
+<network>
+
+<networkScore>
+-25920.3371
+</networkScore>
+<networkStructure>
+6
+ 0   1:   2 0 2          
+ 1   1:   1 1            
+ 2   1:   1 2            
+ 3   1:   1 3            
+ 4   1:   2 4 5          
+ 5   1:   2 0 5          
+</networkStructure>
+</network>
+
+<network>
+
+<networkScore>
+-25920.3406
+</networkScore>
+<networkStructure>
+6
+ 0   1:   2 0 2          
+ 1   1:   1 1            
+ 2   1:   1 2            
+ 3   1:   1 3            
+ 4   1:   2 0 1          
+ 5   1:   2 0 5          
+</networkStructure>
+</network>
+</nBestNetworks>
+</BanjoData>
