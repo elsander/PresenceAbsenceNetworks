@@ -161,8 +161,8 @@ def parse_banjo_xml(fname, spdict_abbrev):
     try:
         xml_nets = structures_from_xml(fname)
     except:
-        print('ERROR: ' + fname)
-        return None
+        print('Error parsing ' + fname)
+        raise
     scores = []
     for xml_net in xml_nets:
         net_dict = structure_to_dict(xml_net)
