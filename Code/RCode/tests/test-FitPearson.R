@@ -115,7 +115,7 @@ expectedComte <- read.csv('test-FitPearson-Comte-example-pearson-adjlist.csv',
 test_that("FitPearsonComte writes expected csv to file", {
     set.seed(8372)
     FitPearsonComte('test-FitPearson-Comte',
-                    trainfname = '../../../Data/Comte2015/Comte-training-final/Comte-all-training-final.txt',
+                    trainfname = '../../../Data/Comte-training-final/Comte-all-training-final.txt',
                     reps = 100, cores = 1)
     comtefname <- 'test-FitPearson-Comte-pearson-adjlist.csv'
     adj <- read.csv(comtefname,

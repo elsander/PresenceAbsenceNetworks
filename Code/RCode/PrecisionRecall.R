@@ -123,11 +123,39 @@ RandomizePrecisionRecall <- function(empirical, consensus, spnames,
                 recallprob = recallprob))
 }
 
+#' Remove any species not in the spname file
+RemoveSpecies <- function(adjlist, spnames){
+    ## convert spnames to a vector
+    spnames <- as.vector(as.matrix(spnames))
+    ## get all spnames in the adjlist
+    adjnames <- unique(c(adjlist$Parent, adjlist$Child))
+    ## any species in adjlist but not spnames?
+    missing <- setdiff(adjnames, spnames)
+    if(length(missing) > 0){
+        print('missing from spname file:')
+        print(missing)
+        adjlist <- adjlist %>%
+            filter(Parent != missing, Child != missing)
+    }
+    return(adjlist)
+}
+
 #' Simple wrapper for RandomizePrecisionRecall that reads in files
 PrecisionRecallScript <- function(empfname = '../../Data/tatoosh-empirical-struct-adjlist.csv', confname = '../../Results/tatoosh-control-exp-cv/tatoosh-control-exp-cv-consensus-adjlist.csv', spfname = '../../Data/tatoosh-control-exp-cv/tatoosh-control-exp-cv-spnames.txt', plotfname = NA, n = 10000){
-    empirical <- read.csv(empfname, stringsAsFactors = FALSE)
-    consensus <- read.csv(confname, stringsAsFactors = FALSE)
-    spnames <- read.table(spfname, header = FALSE, stringsAsFactors = FALSE)
+    ## read in files and convert to syntactically valid names, to make
+    ## sure that all three files use the same naming style
+    empirical <- read.csv(empfname, stringsAsFactors = FALSE) %>%
+        mutate(Child = make.names(Child), Parent = make.names(Parent))
+    consensus <- read.csv(confname, stringsAsFactors = FALSE) %>%
+        mutate(Child = make.names(Child), Parent = make.names(Parent))
+    spnames <- read.table(spfname, header = FALSE, stringsAsFactors = FALSE) %>%
+        mutate(V1 = make.names(V1))
+
+    ## pre-process empirical and consensus to remove any unexpected species
+    print('Checking empirical...')
+    empirical <- RemoveSpecies(empirical, spnames)
+    print('Checking model adjlist...')
+    consensus <- RemoveSpecies(consensus, spnames)
 
     out <- RandomizePrecisionRecall(empirical, consensus, spnames, n=n,
                                     plotfname = plotfname)

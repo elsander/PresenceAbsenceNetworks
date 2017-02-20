@@ -60,18 +60,17 @@ test_that("PredictAdjlist creates data frame of predictions", {
     expected <- data.frame(Corallina = c(.5, .6666667, .5, .5, .6666667, .3333333),
                            Mytilus = c(.5, .6666667, .5, .5, .6666667, .3333333),
                            Pollicipes = c(.5, .6666667, .5, .5, .6666667, .5))
-    corallina <- data.frame(Corallina = c(0,1),
-                            Mytilus = c(1,0),
-                            beta = c(2,1),
-                            alpha = c(2,2),
-                            lower_credible = c(0.09429932, 0.15811388),
-                            upper_credible = c(0.9057007, 0.9874209))
+    corallina <- data.frame(Corallina = c(0,0,1,1),
+                            Mytilus = c(0,1,0,1),
+                            beta = c(1,2,1,1),
+                            alpha = c(1,2,2,1),
+                            lower_credible = c(0.025,0.09429932,0.15811388,0.025),
+                            upper_credible = c(0.975,0.9057007, 0.9874209,0.975))
     expect_equal(out$predictprobs, expected, tolerance = 1e-4)
     expect_equal(length(out$posteriors), 3)
     expect_equal(out$posteriors$Corallina$child, "Corallina")
     expect_equal(out$posteriors$Corallina$parents,
                  c("Corallina", "Mytilus"))
-    expect_true("grouped_df" %in% class(out$posteriors$Corallina$joint))
     expect_true("data.frame" %in% class(out$posteriors$Corallina$joint))
     expect_equal(as.data.frame(out$posteriors$Corallina$joint), corallina,
                  check.attributes = FALSE, tolerance = 1e-7)

@@ -16,6 +16,12 @@ test_that('GetPrecisionRecall calculates correctly', {
     out <- GetPrecisionRecall(consensus, empirical, spnames)
     expect_equal(out$precision, 0.6)
     expect_equal(out$recall, 0.375)
+    ## try with diagonals removed
+    emp2 <- empirical %>% filter(Child != Parent)
+    con2 <- consensus %>% filter(Child != Parent)
+    out <- GetPrecisionRecall(con2, emp2, spnames)
+    expect_equal(out$precision, 0.5)
+    expect_equal(out$recall, 1/3)
 })
 
 test_that('BuildRandomConsensus works with seed', {
@@ -27,17 +33,22 @@ test_that('BuildRandomConsensus works with seed', {
     expect_equal(out, expected)
 })
 
+expectedAdj <- data.frame(Child = c('d', 'e'), Parent = c('b', 'b'),
+                          stringsAsFactors = FALSE)
+
+test_that('RemoveSpecies removes correct rows', {
+    ## test the spnames set without 'a'
+    outadj <- RemoveSpecies(consensus, spnames[-1])
+    ## expect 'a' to be removed from the adjlist
+    expect_equivalent(expectedAdj, outadj)
+})
+
 test_that('RandomizePrecisionRecall works with seed', {
     set.seed(192)
     ## test the case where precision and recall are high
     out <- RandomizePrecisionRecall(empirical, consensus, spnames, n = 100)
-    expect_equal(out$precisionprob, .12)
-    expect_equal(out$recallprob, .12)
-    ## precision and recall are no higher than random here
-    set.seed(555)
-    empirical$Child <- sample(empirical$Child, size = nrow(empirical))
-    empirical$Parent <- sample(empirical$Parent, size = nrow(empirical))
-    out <- RandomizePrecisionRecall(empirical, consensus, spnames, n = 1000)
-    expect_equal(out$precisionprob, .57)
-    expect_equal(out$recallprob, .57)
+    expect_equal(out$precision, .5)
+    expect_equal(out$recall, 1/3)
+    expect_equal(out$precisionprob, .44)
+    expect_equal(out$recallprob, .44)
 })

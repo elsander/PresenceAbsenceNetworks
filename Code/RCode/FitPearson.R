@@ -234,7 +234,7 @@ FitPearson <- function(df, adjlistfname, reps = 1e4, cores = 6){
 #' @param trainfname character, path to training data
 #' @param reps numeric, number of randomization repetitions to perform.
 #' @param cores integer, number of computer cores to use in computation
-FitPearsonComte <- function(basefname, trainfname = '../../Data/Comte2015/Comte-training-final/Comte-all-training-final.txt', reps = 1e4, cores = 6){
+FitPearsonComte <- function(basefname, trainfname = '../../Data/Comte-training-final/Comte-all-training-final.txt', reps = 1e4, cores = 6){
     train <- read.table(trainfname, stringsAsFactors = FALSE, header = TRUE) %>%
         select(-OBJECTID, -Period)
     adjlistfname <- paste0(basefname, "-pearson-adjlist.csv")
