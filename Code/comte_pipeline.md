@@ -21,3 +21,11 @@ and test sets
 
 6. Calculate precision and recall with p-values
 **RCode/PrecisionRecall.R**
+
+
+## Other files
+**RCode/CleanComteData.R**
+Converts data from Comte *et al.* 2015 from transition data (each row
+represents a presence-absence transition between two time periods) to
+presence-absence data (each row represents presence/absence at one
+time period).
